@@ -6,8 +6,8 @@ Resize image to fit container
 
 Download the [production version][min] or the [development version][max].
 
-[min]: https://raw.githubusercontent.com/nmietkiewicz/jquery-jquery-fitimage/master/dist/jquery.jquery-fitimage.min.js
-[max]: https://raw.githubusercontent.com/nmietkiewicz/jquery-jquery-fitimage/master/dist/jquery.jquery-fitimage.js
+[min]: https://raw.githubusercontent.com/nmietkiewicz/jquery-fitimage/master/dist/jquery.fitimage.min.js
+[max]: https://raw.githubusercontent.com/nmietkiewicz/jquery-fitimage/master/dist/jquery.fitimage.js
 
 In your web page:
 
