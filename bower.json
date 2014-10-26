@@ -1,0 +1,9 @@
+{
+  "name": "fitimage",
+  "version": "1.0",
+  "dependencies": {},
+  "main": "dist/jquery.fitimage.min.js"
+  "devDependencies": {
+    "jquery": "~2.1.1"
+  }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="../dist/jquery.fitimage.js"></script>
+
+    <style>
+    .img {
+        width: 400px;
+        height: 200px;
+        border: 1px solid #f00;
+    }
+    </style>
+
+</head>
+
+<body>
+
+    <h2>Original image: 400x300</h2>
+
+    <img src="image.jpg" />
+
+
+    <h2>Fit to default container (200x400)</h2>
+
+    <div style="width: 200px; height: 200px;">
+        <img fitimage src="image.jpg" />
+    </div>
+
+    <h2>Set direct size (300x200)</h2>
+    <img fitimage="300,200" src="image.jpg" />
+
+
+    <script>
+    $(document).ready(function() {
+        $('[fitimage]').fitimage();
+    });
+    </script>
+
+</body>
+
+</html>
