@@ -39,11 +39,12 @@
 
 
             var log = ('fiting ' + w + 'x' + h + 'px in ' + cw + 'x' + ch + 'px');
+            
+
             nw = ch / h * w / cw * 100;
             nh = 100;
-
             if (nw < 100) {
-                nh = h * cw / w;
+                nh = h/ch * cw / w*100;
                 nw = 100;
                 log += (' (width: 100%, height: ' + nh + '% cropped)');
 
@@ -61,7 +62,8 @@
                 'position': 'absolute',
                 'width': nw + "%",
                 'height': nh + "%",
-                'top': (100 - nh) / 2 + "%",
+               // 'top': (100 - nh) / 2 + "%",
+               'top':0,
                 'left': (100 - nw) / 2 + "%"
             })
         });
