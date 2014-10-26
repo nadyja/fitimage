@@ -7,48 +7,48 @@
     $.fn.fitimage = function() {
         return this.each(function(i) {
 
-            var nw, nh,
-                w = $(this).width(),
-                h = $(this).height(),
-                cw, ch;
-
             var size = $(this).attr('fitimage')
-
             if (size) {
-                // user set size - wrap in container
                 size = size.split(',');
-                cw = size[0];
-                ch = size[1];
-                $(this).wrap("<div class='fitimage-container'></div>");
-                var container = $(this).parent();
-                $(container).css({
-                    'height': ch + "px",
-                    'width': cw + "px"
-                });
+                if(size.length!=2) {
+                 console.error('set correct fit size (fitimage="[width],[height]") or leave empty to fit parent container');
+             }
+
+                $(this).wrap("<div class='fitimage-container' style=' width: " + size[0] + "px ; height: " + size[1] + "px;'></div>");                
             } else {
-                // fit to default container
-                var container = $(this).parent();
-                container.addClass('fitimage-container');
-                cw = container.width();
-                ch = container.height();
+                $(this).parent().addClass('fitimage-container');
             }
 
 
-            var log = ('fiting ' + w + 'x' + h + 'px in ' + cw + 'x' + ch + 'px');
-            
 
-            nw = ch / h * w / cw * 100;
-            nh = 100;
-            if (nw < 100) {
-                nh = h/ch * cw / w*100;
-                nw = 100;
-                log += (' (width: 100%, height: ' + nh + '% cropped)');
 
+            var original = {
+                width: $(this).width(),
+                height: $(this).height()
+            };
+
+            var container = $(this).parent();
+            container.width = container.width();
+            container.height = container.height();
+
+
+
+
+            var log = ('fiting ' + original.width + 'x' + original.height + 'px in ' + container.width + 'x' + container.height + 'px');
+
+
+            var calculated = {
+                width: container.height / original.height * original.width / container.width * 100,
+                height: 100
+            };
+            if (calculated.width < 100) {
+                calculated.width = 100;
+                calculated.height = original.height / container.height * container.width / original.width * 100;
+                log += (' (width: 100%, height: ' + calculated.height.toFixed(0) + '% cropped)');
             } else {
-                log += (' (width: ' + nw + '% cropped, height: 100%)')
+                log += (' (width: ' + calculated.width.toFixed(0) + '% cropped, height: 100%)')
             }
-            console.log(log);
-            //nw=nw/cw*100;
+            //console.log(log);
 
             $(container).css({
                 'overflow': 'hidden',
@@ -56,20 +56,22 @@
             })
             $(this).css({
                 'position': 'absolute',
-                'width': nw + "%",
-                'height': nh + "%",
-               // 'top': (100 - nh) / 2 + "%",
-               'top':0,
-                'left': (100 - nw) / 2 + "%"
+                'width': calculated.width + "%",
+                'height': calculated.height + "%",
+                // 'top': (100 - calculated.height) / 2 + "%",
+                'top': 0,
+                'left': (100 - calculated.width) / 2 + "%"
             })
         });
     };
+
+    // TODO: recalculate on resize;
 
 }(jQuery));
 
 
 
-
+if(typeof angular!='undefined')
 angular.module('fitimage', [])
     .directive('fitimage', function($timeout) {
         return {
