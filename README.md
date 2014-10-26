@@ -12,11 +12,13 @@ Download the [production version][min] or the [development version][max].
 In your web page:
 
 ```html
+<img src="image.jpg" fitimage="200,300" />
+
 <script src="jquery.js"></script>
-<script src="dist/jquery-fitimage.min.js"></script>
+<script src="dist/jquery.fitimage.min.js"></script>
 <script>
 jQuery(function($) {
-  $.awesome(); // "awesome"
+  $('[fitimage]').fitimage();
 });
 </script>
 ```
