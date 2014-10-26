@@ -20,14 +20,15 @@
                 cw = size[0];
                 ch = size[1];
                 $(this).wrap("<div class='fitimage-container'></div>");
-                container = $(this).parent();
+                var container = $(this).parent();
                 $(container).css({
                     'height': ch + "px",
                     'width': cw + "px"
                 });
             } else {
                 // fit to default container
-                container = $(this).parent().addClass('fitimage-container');
+                var container = $(this).parent();
+                container.addClass('fitimage-container');
                 cw = container.width();
                 ch = container.height();
             }
@@ -50,7 +51,7 @@
 
             $(container).css({
                 'overflow': 'hidden',
-                'position': 'relative',
+                'position': 'relative'
             })
             $(this).css({
                 'position': 'absolute',
@@ -68,11 +69,14 @@
 
 
 angular.module('fitimage', [])
-.directive('fitimage', function () {
-  return {
-    restrict: 'E',
-    link: function(scope, element, attrs, ctrls) {
-       $(element).fitimage();
-    }
-  };
-});
+    .directive('fitimage', function($timeout) {
+        return {
+            restrict: 'A',
+            transclude: true,
+            link: function(scope, element, attrs, ctrls) {
+                element.on('load', function() {
+                    $(element).fitimage();
+                });
+            }
+        };
+    });
